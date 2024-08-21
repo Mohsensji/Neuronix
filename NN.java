@@ -10,15 +10,22 @@ public class NN {
         Value out;
 
         public Neuron(int nin) {
-            for (int i = 0; i <= nin; i++) {
+            for (int i = 0; i < nin; i++) {
                 this.w.add(new Value("", Neuronix.randn(-1, 1), 0, ""));
             }
         }
 
         public Value run(ArrayList<Double> x) {
-            Value activation = new Value("", 0.0, 0, "");
+            Value activation = new Value("", 0, 0, "");
             for (int i = 0; i < w.size(); i++) {
-                activation = activation.add(this.w.get(i).double_mul(x.get(i)));
+                if (i == 0 ){
+                    System.out.println("wsize" + w.size());
+                    System.out.println("xsize" + x.size());
+                    activation= this.w.get(i).double_mul(x.get(i));
+                }
+                else{
+                    activation = activation.add(this.w.get(i).double_mul(x.get(i)));
+                }
             }
             activation.add(this.b);
             this.out = activation.relu();
